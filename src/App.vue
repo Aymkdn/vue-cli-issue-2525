@@ -6,7 +6,16 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// static import works
+//import HelloWorld from './components/HelloWorld.vue'
+
+// dynamic import doesn't work
+const HelloWorld = (resolve) => {
+  import(/* webpackChunkName: "helloworld" */'./components/HelloWorld.vue')
+  .then(AsyncComponent => {
+    resolve(AsyncComponent.default);
+  });
+}
 
 export default {
   name: 'app',
